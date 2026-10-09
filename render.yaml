@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: fk-sava-admin-api
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: GITHUB_OWNER
+        value: websolutions-demo
+      - key: GITHUB_REPO
+        value: FK_Sava
+      - key: GITHUB_BRANCH
+        value: main
+      - key: GITHUB_DATA_PATH
+        value: club-data.json
+      - key: ALLOWED_ORIGINS
+        value: https://websolutions-demo.github.io,http://localhost:8000,http://127.0.0.1:8000,null
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true

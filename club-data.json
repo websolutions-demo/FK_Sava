@@ -1,4 +1,4 @@
-window.FKSAVA_DATA = {
+{
   "meta": {
     "schemaVersion": 2,
     "season": "2026/27",
@@ -1030,4 +1030,4 @@ window.FKSAVA_DATA = {
       "caption": "FK Sava — demo galerija 8"
     }
   ]
-};
+}
