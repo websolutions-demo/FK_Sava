@@ -125,7 +125,7 @@
   const enrollModal=qs('#enrollModal');
   const yearSelect=qs('#enrollForm select[name="year"]');
   data.years.forEach(y=>{ const o=document.createElement('option'); o.value=y.year; o.textContent=y.year; yearSelect.appendChild(o); });
-  function openEnroll(){ enrollModal.classList.add('open'); enrollModal.setAttribute('aria-hidden','false'); body.classList.add('no-scroll'); setTimeout(()=>qs('#enrollForm input')?.focus(),100); }
+  function openEnroll(){ enrollModal.classList.add('open'); enrollModal.setAttribute('aria-hidden','false'); body.classList.add('no-scroll'); const card=enrollModal.querySelector('.enroll-card'); if(card) card.scrollTop=0; if(window.matchMedia('(min-width: 721px)').matches) setTimeout(()=>qs('#enrollForm input')?.focus(),100); }
   function closeEnroll(){ enrollModal.classList.remove('open'); enrollModal.setAttribute('aria-hidden','true'); body.classList.remove('no-scroll'); }
   qsa('.js-open-enroll').forEach(b=>b.addEventListener('click', openEnroll));
   qsa('.js-close-enroll').forEach(b=>b.addEventListener('click', closeEnroll));
