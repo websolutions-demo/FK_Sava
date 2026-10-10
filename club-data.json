@@ -2,7 +2,7 @@
   "meta": {
     "schemaVersion": 3,
     "season": "2026/27",
-    "updatedAt": "2026-10-10T12:26:22.777Z"
+    "updatedAt": "2026-10-10T12:29:07.718Z"
   },
   "club": {
     "name": "FK Sava",
@@ -110,12 +110,12 @@
         },
         {
           "id": "2012-2",
-          "name": "Jovan Došlo",
-          "number": 12,
+          "name": "Igrač 02",
+          "number": 3,
           "position": "Odbrana",
-          "photo": "assets/uploads/2012/1791635174591-4a72543d.webp",
+          "photo": "",
           "active": true,
-          "note": ""
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
         },
         {
           "id": "2012-3",
@@ -807,116 +807,6 @@
     }
   ],
   "matches": [
-    {
-      "id": "2016-m1",
-      "year": 2016,
-      "date": "2026-10-05",
-      "time": "10:00",
-      "competition": "Prijateljska utakmica",
-      "venue": "home",
-      "opponent": "FK Bežanija",
-      "status": "played",
-      "scoreAgainst": 2,
-      "lineup": [
-        "2016-1",
-        "2016-2",
-        "2016-3",
-        "2016-4",
-        "2016-5",
-        "2016-6",
-        "2016-7",
-        "2016-8"
-      ],
-      "events": [
-        {
-          "type": "goal",
-          "minute": 12,
-          "scorerId": "2016-4",
-          "assistPlayerId": "2016-7"
-        },
-        {
-          "type": "goal",
-          "minute": 27,
-          "scorerId": "2016-6",
-          "assistPlayerId": "2016-4"
-        },
-        {
-          "type": "goal",
-          "minute": 43,
-          "scorerId": "2016-4",
-          "assistPlayerId": ""
-        },
-        {
-          "type": "goal",
-          "minute": 58,
-          "scorerId": "2016-8",
-          "assistPlayerId": "2016-5"
-        }
-      ],
-      "videoId": "ACb081-H7eE",
-      "image": "assets/images/match1.jpg",
-      "note": "Demo podaci — zameniti stvarnim rezultatom."
-    },
-    {
-      "id": "2016-m2",
-      "year": 2016,
-      "date": "2026-10-12",
-      "time": "11:00",
-      "competition": "Liga mlađih kategorija",
-      "venue": "away",
-      "opponent": "FK Zemun",
-      "status": "played",
-      "scoreAgainst": 1,
-      "lineup": [
-        "2016-1",
-        "2016-2",
-        "2016-3",
-        "2016-4",
-        "2016-5",
-        "2016-6",
-        "2016-7",
-        "2016-8"
-      ],
-      "events": [
-        {
-          "type": "goal",
-          "minute": 19,
-          "scorerId": "2016-7",
-          "assistPlayerId": "2016-4"
-        },
-        {
-          "type": "goal",
-          "minute": 36,
-          "scorerId": "2016-6",
-          "assistPlayerId": "2016-5"
-        },
-        {
-          "type": "goal",
-          "minute": 61,
-          "scorerId": "2016-6",
-          "assistPlayerId": "2016-7"
-        }
-      ],
-      "videoId": "",
-      "image": "assets/images/match2.jpg",
-      "note": "Demo podaci."
-    },
-    {
-      "id": "2016-m3",
-      "year": 2016,
-      "date": "2026-10-19",
-      "time": "10:30",
-      "competition": "Liga mlađih kategorija",
-      "venue": "home",
-      "opponent": "FK Novi Beograd",
-      "status": "upcoming",
-      "scoreAgainst": null,
-      "lineup": [],
-      "events": [],
-      "videoId": "",
-      "image": "assets/images/match3.jpg",
-      "note": "Najavljena utakmica."
-    },
     {
       "id": "2014-m1",
       "year": 2014,
