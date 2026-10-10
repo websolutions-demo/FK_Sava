@@ -56,6 +56,23 @@
     const q=[m.venueName,m.address].filter(Boolean).join(', ');
     return q ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}` : '';
   };
+  const coachInfo = group => {
+    const raw=group?.coach;
+    if(raw && typeof raw==='object') return {
+      name:String(raw.name||'').trim(), role:String(raw.role||'Trener').trim()||'Trener', photo:String(raw.photo||'').trim(),
+      phone:String(raw.phone||'').trim(), bio:String(raw.bio||'').trim(), contactEnabled:raw.contactEnabled!==false
+    };
+    const name=typeof raw==='string' ? raw.trim() : '';
+    if(!name || /podatak kluba|nije upisan/i.test(name)) return {name:'',role:'Trener',photo:'',phone:'',bio:'',contactEnabled:false};
+    return {name,role:'Trener',photo:'',phone:'',bio:'',contactEnabled:false};
+  };
+  const coachLabel = group => { const c=coachInfo(group); return c.name ? `${c.role}: ${c.name}` : 'Trener nije upisan'; };
+  const coachCard = (group,year) => {
+    const c=coachInfo(group); if(!c.name && !c.photo) return '';
+    const visual=c.photo ? `<img src="${safeSrc(c.photo)}" alt="${esc(c.name||'Trener FK Sava')}">` : `<img class="coach-logo-placeholder" src="assets/images/logo.png" alt="FK Sava">`;
+    return `<section class="coach-card"><div class="coach-photo">${visual}</div><div class="coach-copy"><span class="section-kicker">TRENER GENERACIJE ${esc(year)}</span><h3>${esc(c.name||'Trener FK Sava')}</h3><p class="coach-role">${esc(c.role||'Trener')}</p>${c.bio?`<p class="coach-bio">${esc(c.bio)}</p>`:''}${c.contactEnabled&&c.phone?`<button class="btn btn-gold coach-contact-btn" data-coach-contact="${esc(year)}">Kontaktiraj trenera</button>`:''}</div></section>`;
+  };
+
 
   // Mobile menu
   const menuBtn = qs('#menuBtn');
@@ -114,7 +131,7 @@
     });
   }
   function drawerHead(group, extra=''){
-    return `<div class="drawer-head"><div><span class="section-kicker">GODIŠTE ${esc(group.year)}</span><h2>Ekipa ${esc(group.year)}</h2><p>${esc(group.coach || 'Trener — podatak kluba')} ${extra}</p></div><span class="demo-badge">SEZONA ${esc(data.meta?.season || '')}</span></div>`;
+    return `<div class="drawer-head"><div><span class="section-kicker">GODIŠTE ${esc(group.year)}</span><h2>Ekipa ${esc(group.year)}</h2><p>${esc(coachLabel(group))} ${extra}</p></div><span class="demo-badge">SEZONA ${esc(data.meta?.season || '')}</span></div>`;
   }
   function playerVisual(p, large=false){
     if(p.photo) return `<div class="player-photo ${large?'large':''}"><img src="${safeSrc(p.photo)}" alt="${esc(p.name)}"></div>`;
@@ -124,6 +141,8 @@
     const group = groupFor(year); if(!group) return;
     const players=(group.players||[]).filter(p=>p.active!==false);
     drawerContent.innerHTML = `${drawerHead(group, `· ${players.length} igrača`)}${tabs(year,'players')}
+      ${coachCard(group,year)}
+      <div class="roster-heading"><span class="section-kicker">IGRAČI</span><strong>${players.length} članova ekipe</strong></div>
       <div class="players-row">${players.map(p => {
         const s=playerStats(year,p.id);
         return `<button class="player-card" data-player="${esc(p.id)}">${playerVisual(p)}<b>${esc(p.name)}</b><small>#${esc(p.number)} · ${esc(p.position)}</small><span class="mini-stats"><span><strong>${s.appearances}</strong><em>Nastupi</em></span><span><strong>${s.goals}</strong><em>Golovi</em></span><span><strong>${s.assists}</strong><em>Asist.</em></span></span></button>`;
@@ -131,6 +150,7 @@
       <p class="drawer-hint">Statistika se automatski računa iz odigranih utakmica i unetih strelaca/asistenata.</p>`;
     bindTabs(year);
     qsa('.player-card', drawerContent).forEach(btn => btn.addEventListener('click', () => renderPlayer(year, btn.dataset.player)));
+    qsa('[data-coach-contact]',drawerContent).forEach(btn=>btn.addEventListener('click',()=>openCoachContact(Number(btn.dataset.coachContact))));
   }
   function renderPlayer(year, playerId){
     const group=groupFor(year); const p=group?.players?.find(p=>p.id===playerId); if(!p) return;
@@ -220,6 +240,30 @@
   qsa('.js-close-lightbox').forEach(b=>b.addEventListener('click',closeLightbox));
   lightbox?.addEventListener('click',e=>{if(e.target===lightbox) closeLightbox();});
 
+
+  // Coach contact
+  const coachContactModal=qs('#coachContactModal');
+  let activeCoach=null;
+  function openCoachContact(year){
+    const group=groupFor(year); const c=coachInfo(group); if(!c.phone) return;
+    activeCoach={...c,year};
+    const form=qs('#coachContactForm'); if(!form) return;
+    form.reset(); form.elements.year.value=year;
+    const title=qs('#coachContactTitle'); if(title) title.textContent=c.name?`Kontaktiraj: ${c.name}`:'Kontaktiraj trenera';
+    const intro=qs('#coachContactIntro'); if(intro) intro.textContent=`Godište ${year} · ${c.role||'Trener'}. Popunite podatke i pripremićemo SMS poruku.`;
+    coachContactModal.classList.add('open'); coachContactModal.setAttribute('aria-hidden','false'); body.classList.add('no-scroll');
+    const card=coachContactModal.querySelector('.coach-contact-card'); if(card) card.scrollTop=0;
+  }
+  function closeCoachContact(){ coachContactModal?.classList.remove('open'); coachContactModal?.setAttribute('aria-hidden','true'); body.classList.remove('no-scroll'); }
+  qsa('.js-close-coach-contact').forEach(b=>b.addEventListener('click',closeCoachContact));
+  coachContactModal?.addEventListener('click',e=>{if(e.target===coachContactModal)closeCoachContact();});
+  qs('#coachContactForm')?.addEventListener('submit',e=>{
+    e.preventDefault(); if(!activeCoach?.phone) return;
+    const f=new FormData(e.currentTarget);
+    const msg=[`FK Sava – kontakt treneru`,`Godište: ${f.get('year')}`,`Roditelj: ${f.get('parent')}`,`Telefon: ${f.get('phone')}`,f.get('child')?`Dete: ${f.get('child')}`:'',f.get('note')?`Poruka: ${f.get('note')}`:''].filter(Boolean).join('\n');
+    window.location.href=`sms:${activeCoach.phone}?&body=${encodeURIComponent(msg)}`;
+  });
+
   // Enrollment
   const enrollModal=qs('#enrollModal'), yearSelect=qs('#enrollForm select[name="year"]');
   years.forEach(y=>{ const o=document.createElement('option'); o.value=y.year; o.textContent=y.year; yearSelect?.appendChild(o); });
@@ -239,6 +283,7 @@
     if(drawer?.classList.contains('open')) closeAge();
     if(videoModal?.classList.contains('open')) closeVideo();
     if(lightbox?.classList.contains('open')) closeLightbox();
+    if(coachContactModal?.classList.contains('open')) closeCoachContact();
     if(enrollModal?.classList.contains('open')) closeEnroll();
   });
 })();

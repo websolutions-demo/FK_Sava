@@ -6,7 +6,8 @@
   <meta name="theme-color" content="#090a0b" />
   <meta name="description" content="FK Sava — Blok 45, Novi Beograd. Upis dečaka i devojčica, godišta 2011–2020." />
   <title>FK Sava — Blok 45</title>
-  <link rel="icon" href="assets/images/logo.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
@@ -181,6 +182,26 @@
         <label>Godište deteta<select required name="year"><option value="">Izaberi godište</option></select></label>
         <label>Poruka<textarea name="note" rows="3" placeholder="Opcionalno"></textarea></label>
         <button class="btn btn-gold btn-lg" type="submit">Pripremi SMS</button>
+      </form>
+      <p class="form-note">Sajt ne čuva podatke — poruka se otvara u SMS aplikaciji na uređaju.</p>
+    </div>
+  </div>
+
+
+  <!-- COACH CONTACT MODAL -->
+  <div class="modal" id="coachContactModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="coachContactTitle">
+    <div class="modal-card enroll-card coach-contact-card">
+      <button class="modal-close js-close-coach-contact" aria-label="Zatvori">×</button>
+      <span class="section-kicker">KONTAKT SA TRENEROM</span>
+      <h2 id="coachContactTitle">Kontaktiraj trenera</h2>
+      <p id="coachContactIntro">Popunite podatke i pripremićemo SMS poruku treneru.</p>
+      <form id="coachContactForm">
+        <input type="hidden" name="year" />
+        <label>Ime roditelja<input required name="parent" autocomplete="name" /></label>
+        <label>Telefon<input required name="phone" inputmode="tel" autocomplete="tel" /></label>
+        <label>Ime deteta<input name="child" autocomplete="off" /></label>
+        <label>Poruka<textarea name="note" rows="3" placeholder="Opcionalno"></textarea></label>
+        <button class="btn btn-gold btn-lg" type="submit">Pripremi SMS treneru</button>
       </form>
       <p class="form-note">Sajt ne čuva podatke — poruka se otvara u SMS aplikaciji na uređaju.</p>
     </div>

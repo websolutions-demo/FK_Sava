@@ -4,8 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#08090a" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="FK Sava Admin" />
   <title>FK Sava — Sports Admin</title>
-  <link rel="icon" href="assets/images/logo.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+  <link rel="manifest" href="admin-manifest.webmanifest" />
   <link rel="stylesheet" href="assets/css/admin.css" />
 </head>
 <body>
@@ -14,7 +20,7 @@
       <img src="assets/images/logo.png" alt="FK Sava" />
       <span class="kicker">FK SAVA · SPORTS ADMIN</span>
       <h1>Klupska administracija</h1>
-      <p>Portal za igrače, utakmice, rezultate, strelce, YouTube i fotografije. Prilagođen je radu sa telefona.</p>
+      <p>Portal za trenere, igrače, utakmice, rezultate, strelce, YouTube i fotografije. Prilagođen je radu sa telefona.</p>
       <label>Lozinka<input id="adminPassword" type="password" autocomplete="current-password" placeholder="Admin lozinka" /></label>
       <button class="btn gold" id="loginBtn">Prijavi se</button>
       <details class="api-settings">
@@ -45,6 +51,7 @@
         <label class="year-label">GODIŠTE<select id="yearSelect"></select></label>
         <nav class="admin-tabs" aria-label="Administracija">
           <button data-tab="dashboard" class="active">⌂ <span>Pregled</span></button>
+          <button data-tab="coach">🧑‍🏫 <span>Trener</span></button>
           <button data-tab="players">👥 <span>Igrači</span></button>
           <button data-tab="matches">⚽ <span>Utakmice</span></button>
           <button data-tab="gallery">📷 <span>Galerija</span></button>
@@ -69,6 +76,7 @@
 
     <nav class="mobile-bottom-nav" aria-label="Administracija na telefonu">
       <button data-tab="dashboard" class="active">⌂<span>Pregled</span></button>
+      <button data-tab="coach">🧑‍🏫<span>Trener</span></button>
       <button data-tab="players">👥<span>Igrači</span></button>
       <button data-tab="matches">⚽<span>Mečevi</span></button>
       <button data-tab="gallery">📷<span>Slike</span></button>

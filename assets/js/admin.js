@@ -107,7 +107,7 @@
     if(demoMode) return;
     try{
       $('#publishBtn').disabled=true; $('#publishBtn').textContent='Objavljujem…';
-      data.meta=data.meta||{}; data.meta.updatedAt=new Date().toISOString(); data.meta.schemaVersion=3;
+      data.meta=data.meta||{}; data.meta.updatedAt=new Date().toISOString(); data.meta.schemaVersion=4;
       const res=await api('/api/club-data',{method:'PUT',body:JSON.stringify({data})});
       clearDraft(); setDirty(false); toast(`Objavljeno ✓ ${res.commitSha ? res.commitSha.slice(0,7) : ''}`);
     }catch(e){ toast(e.message,'error',5000); }
@@ -116,6 +116,13 @@
   $('#logoutBtn').onclick=logout; $('#logoutBtnSide').onclick=logout;
 
   function group(){ return data.years.find(y=>Number(y.year)===Number(currentYear)); }
+  function coachData(){
+    const raw=group()?.coach;
+    if(raw && typeof raw==='object') return {name:String(raw.name||''),role:String(raw.role||'Trener'),phone:String(raw.phone||''),photo:String(raw.photo||''),bio:String(raw.bio||''),contactEnabled:raw.contactEnabled!==false};
+    const name=typeof raw==='string' && !/podatak kluba|nije upisan/i.test(raw) ? raw : '';
+    return {name,role:'Trener',phone:'',photo:'',bio:'',contactEnabled:false};
+  }
+  function coachName(){const c=coachData();return c.name?`${c.role||'Trener'}: ${c.name}`:'Trener nije upisan';}
   function yearMatches(){ return (data.matches||[]).filter(m=>Number(m.year)===Number(currentYear)); }
   function yearGallery(){ return (data.gallery||[]).filter(g=>Number(g.year)===Number(currentYear)); }
   function scoreFor(m){ return (m.events||[]).filter(e=>e.type==='goal').length; }
@@ -141,24 +148,44 @@
     return s;
   }
 
-  function render(){ if(!data) return; if(currentTab==='players')renderPlayers(); else if(currentTab==='matches')renderMatches(); else if(currentTab==='gallery')renderGallery(); else renderDashboard(); }
+  function render(){ if(!data) return; if(currentTab==='coach')renderCoach(); else if(currentTab==='players')renderPlayers(); else if(currentTab==='matches')renderMatches(); else if(currentTab==='gallery')renderGallery(); else renderDashboard(); }
   function head(kicker,titleText,sub,button=''){return `<div class="workspace-head"><div><span class="kicker">${esc(kicker)}</span><h1>${esc(titleText)}</h1><p>${esc(sub)}</p></div>${button}</div>`;}
 
   function renderDashboard(){
     const g=group(); const players=(g.players||[]).filter(p=>p.active!==false); const ms=yearMatches(); const played=ms.filter(m=>m.status==='played'); const upcoming=ms.filter(m=>m.status==='upcoming').sort((a,b)=>`${a.date}T${a.time||''}`.localeCompare(`${b.date}T${b.time||''}`)); const goals=played.reduce((n,m)=>n+scoreFor(m),0); const gal=yearGallery();
     const last=[...played].sort((a,b)=>`${b.date}T${b.time||''}`.localeCompare(`${a.date}T${a.time||''}`))[0]; const next=upcoming[0];
-    $('#workspaceContent').innerHTML=head(`GODIŠTE ${currentYear}`,`Pregled ekipe ${currentYear}`,`${g.coach||'Trener nije upisan'} · sezona ${data.meta?.season||''}`)+`
+    $('#workspaceContent').innerHTML=head(`GODIŠTE ${currentYear}`,`Pregled ekipe ${currentYear}`,`${coachName()} · sezona ${data.meta?.season||''}`)+`
       <div class="dashboard-grid"><div class="stat-card"><small>Igrači</small><b>${players.length}</b></div><div class="stat-card"><small>Odigrano</small><b>${played.length}</b></div><div class="stat-card"><small>Golovi</small><b>${goals}</b></div><div class="stat-card"><small>Fotografije</small><b>${gal.length}</b></div></div>
-      <div class="quick-grid"><button class="quick-card" data-quick="player"><strong>+ Igrač</strong><span>Unesi igrača i fotografiju</span></button><button class="quick-card" data-quick="match"><strong>+ Utakmica</strong><span>Datum, mapa, rezultat, strelci</span></button><button class="quick-card" data-quick="gallery"><strong>+ Fotografije</strong><span>Dodaj više slika sa telefona</span></button></div>
+      <div class="quick-grid"><button class="quick-card" data-quick="coach"><strong>Trener</strong><span>Fotografija, telefon i kontakt</span></button><button class="quick-card" data-quick="player"><strong>+ Igrač</strong><span>Unesi igrača i fotografiju</span></button><button class="quick-card" data-quick="match"><strong>+ Utakmica</strong><span>Datum, mapa, rezultat, strelci</span></button><button class="quick-card" data-quick="gallery"><strong>+ Fotografije</strong><span>Dodaj više slika sa telefona</span></button></div>
       <div class="dashboard-two"><section class="panel-card"><h3>Sledeća utakmica</h3>${next?matchSummary(next,true):'<div class="empty-card">Nema najavljene utakmice.</div>'}</section><section class="panel-card"><h3>Poslednji rezultat</h3>${last?matchSummary(last,false):'<div class="empty-card">Još nema odigranih utakmica.</div>'}</section></div>`;
-    $$('[data-quick]').forEach(b=>b.onclick=()=>{if(b.dataset.quick==='player')openPlayerEditor();if(b.dataset.quick==='match')openMatchEditor();if(b.dataset.quick==='gallery')openGalleryEditor();});
+    $$('[data-quick]').forEach(b=>b.onclick=()=>{if(b.dataset.quick==='coach')openCoachEditor();if(b.dataset.quick==='player')openPlayerEditor();if(b.dataset.quick==='match')openMatchEditor();if(b.dataset.quick==='gallery')openGalleryEditor();});
   }
   function matchSummary(m,showMap){const mu=mapsUrl(m);return `<div class="next-match"><span class="kicker">${esc(fmtDate(m.date))} · ${esc(m.time||'')}</span><div class="score-line">${esc(title(m))}</div><div class="meta">${esc(m.competition||'')} ${m.venueName?`· ${esc(m.venueName)}`:''}</div><b>${esc(result(m))}</b><div class="inline-actions"><button class="btn ghost small" data-dash-edit="${esc(m.id)}">Izmeni</button>${showMap&&mu?`<a class="btn ghost small" target="_blank" rel="noopener" href="${esc(mu)}">📍 Navigacija</a>`:''}</div></div>`;}
   document.addEventListener('click',e=>{const b=e.target.closest('[data-dash-edit]');if(b)openMatchEditor(b.dataset.dashEdit);});
 
+  function renderCoach(){
+    const c=coachData();
+    $('#workspaceContent').innerHTML=head(`GODIŠTE ${currentYear}`,`Trener ${currentYear}`,`Kontakt i profil trenera ove generacije`,`<button class="btn gold" id="editCoach">${c.name?'Izmeni trenera':'+ Unesi trenera'}</button>`)+`
+      <section class="coach-admin-card">
+        <div class="coach-admin-photo">${c.photo?`<img src="${esc(c.photo)}" alt="${esc(c.name)}">`:`<img class="coach-admin-logo" src="assets/images/logo.png" alt="FK Sava">`}</div>
+        <div class="coach-admin-copy"><span class="kicker">TRENER GENERACIJE ${currentYear}</span><h2>${esc(c.name||'Trener nije upisan')}</h2><p class="coach-admin-role">${esc(c.role||'Trener')}</p>${c.bio?`<p>${esc(c.bio)}</p>`:''}<div class="coach-admin-meta">${c.phone?`<span>☎ ${esc(c.phone)}</span>`:'<span>Telefon nije unet</span>'}<span>${c.contactEnabled?'Kontakt forma uključena':'Kontakt forma isključena'}</span></div></div>
+      </section>`;
+    $('#editCoach').onclick=openCoachEditor;
+  }
+  function openCoachEditor(){
+    const c=coachData();
+    openEditor(`<span class="kicker">TRENER · ${currentYear}</span><h2>${c.name?'Izmeni trenera':'Unesi trenera'}</h2><form id="coachForm"><div class="form-grid">
+      <label>Ime i prezime<input name="name" required value="${esc(c.name)}"></label><label>Funkcija<input name="role" value="${esc(c.role||'Trener')}" placeholder="Trener"></label>
+      <label>Telefon<input name="phone" inputmode="tel" value="${esc(c.phone)}" placeholder="+381 6x ..."></label><label>Kontakt sa sajta<select name="contactEnabled"><option value="true" ${c.contactEnabled?'selected':''}>Dozvoli</option><option value="false" ${!c.contactEnabled?'selected':''}>Isključi</option></select></label>
+      <div class="section-divider">Fotografija trenera</div><label class="full">Izaberi fotografiju<input name="photoFile" type="file" accept="image/jpeg,image/png,image/webp"><span class="hint">Fotografija se automatski cropuje na 3:4 i kompresuje pre slanja.</span></label>
+      ${c.photo?`<div class="full image-preview"><img src="${esc(c.photo)}" alt=""><span class="hint">Trenutna fotografija</span></div>`:''}<label class="full">Kratak opis<textarea name="bio" rows="4" placeholder="Iskustvo, pristup radu sa decom, licenca...">${esc(c.bio)}</textarea></label>
+      </div><div class="image-progress" id="coachImageProgress"></div><div class="form-actions"><button type="button" class="btn ghost js-cancel">Otkaži</button><button class="btn gold" type="submit">Sačuvaj trenera</button></div></form>`);
+    $('#coachForm').onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.currentTarget);try{let photo=c.photo||'';const file=fd.get('photoFile');if(file?.size){$('#coachImageProgress').textContent='Obrađujem fotografiju…';photo=await uploadImage(currentYear,file,'coach');}group().coach={name:fd.get('name').trim(),role:fd.get('role').trim()||'Trener',phone:fd.get('phone').trim(),photo,bio:fd.get('bio').trim(),contactEnabled:fd.get('contactEnabled')==='true'};setDirty();closeEditor();renderCoach();}catch(err){toast(err.message,'error',5000);}};
+  }
+
   function renderPlayers(){
     const g=group(); const players=g.players||[];
-    $('#workspaceContent').innerHTML=head(`GODIŠTE ${currentYear}`,`Igrači ${currentYear}`,`${g.coach || 'Trener nije upisan'} · statistika se računa iz utakmica`,`<button class="btn gold" id="addPlayer">+ Dodaj igrača</button>`)+`
+    $('#workspaceContent').innerHTML=head(`GODIŠTE ${currentYear}`,`Igrači ${currentYear}`,`${coachName()} · statistika se računa iz utakmica`,`<button class="btn gold" id="addPlayer">+ Dodaj igrača</button>`)+`
       <table class="data-table"><thead><tr><th>#</th><th>Igrač</th><th>Pozicija</th><th>Nastupi</th><th>Golovi</th><th>Asist.</th><th></th></tr></thead><tbody>${players.map(p=>{const s=statsFor(p.id);return `<tr><td class="num">${esc(p.number)}</td><td><div class="player-cell">${p.photo?`<img class="player-thumb" src="${esc(p.photo)}" alt="">`:`<span class="player-placeholder">${esc(p.number)}</span>`}<div><b>${esc(p.name)}</b>${p.active===false?'<br><span class="pill">neaktivan</span>':''}</div></div></td><td>${esc(p.position)}</td><td class="num">${s.appearances}</td><td class="num">${s.goals}</td><td class="num">${s.assists}</td><td class="actions"><button class="btn ghost small" data-edit-player="${esc(p.id)}">Izmeni</button> <button class="btn danger small" data-delete-player="${esc(p.id)}">Obriši</button></td></tr>`}).join('')}</tbody></table>`;
     $('#addPlayer').onclick=()=>openPlayerEditor(); $$('[data-edit-player]').forEach(b=>b.onclick=()=>openPlayerEditor(b.dataset.editPlayer)); $$('[data-delete-player]').forEach(b=>b.onclick=()=>deletePlayer(b.dataset.deletePlayer));
   }
@@ -223,7 +250,7 @@
   async function optimizeImage(file,mode){
     if(!file.type.startsWith('image/')) throw new Error('Izabrani fajl nije fotografija.');
     const img=await loadImage(file); let sw=img.naturalWidth||img.width, sh=img.naturalHeight||img.height; let sx=0,sy=0,cw=sw,ch=sh,tw,th;
-    if(mode==='player'){tw=900;th=1200;const tr=tw/th, sr=sw/sh;if(sr>tr){cw=sh*tr;sx=(sw-cw)/2;}else{ch=sw/tr;sy=(sh-ch)/2;}}
+    if(mode==='player'||mode==='coach'){tw=900;th=1200;const tr=tw/th, sr=sw/sh;if(sr>tr){cw=sh*tr;sx=(sw-cw)/2;}else{ch=sw/tr;sy=(sh-ch)/2;}}
     else if(mode==='match'){tw=1280;th=720;const tr=tw/th,sr=sw/sh;if(sr>tr){cw=sh*tr;sx=(sw-cw)/2;}else{ch=sw/tr;sy=(sh-ch)/2;}}
     else {const max=1600;const scale=Math.min(1,max/Math.max(sw,sh));tw=Math.max(1,Math.round(sw*scale));th=Math.max(1,Math.round(sh*scale));}
     const canvas=document.createElement('canvas');canvas.width=tw;canvas.height=th;const ctx=canvas.getContext('2d',{alpha:false});ctx.fillStyle='#111';ctx.fillRect(0,0,tw,th);ctx.drawImage(img,sx,sy,cw,ch,0,0,tw,th);
@@ -244,4 +271,8 @@
   $('#exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`fk-sava-backup-${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(a.href);};
   $('#importBtn').onclick=()=>$('#importFile').click();
   $('#importFile').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{const x=JSON.parse(await f.text());if(!x.years||!x.matches||!x.gallery)throw new Error('JSON nije FK Sava backup.');data=x;syncYearSelects();setDirty();render();toast('Backup je učitan. Klikni „Objavi“ da ode na GitHub.');}catch(err){toast(err.message,'error');}e.target.value='';};
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(err=>console.warn('FK Sava PWA:',err)));
+  }
+
 })();
