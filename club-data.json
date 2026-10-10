@@ -2,7 +2,7 @@
   "meta": {
     "schemaVersion": 3,
     "season": "2026/27",
-    "updatedAt": "2026-10-10T14:27:21.407Z"
+    "updatedAt": "2026-10-10T15:16:28.595Z"
   },
   "club": {
     "name": "FK Sava",
@@ -884,34 +884,6 @@
     }
   ],
   "gallery": [
-    {
-      "id": "g1",
-      "year": 2016,
-      "category": "utakmica",
-      "src": "assets/images/gallery1.jpg",
-      "caption": "FK Sava — demo galerija 1"
-    },
-    {
-      "id": "g2",
-      "year": 2016,
-      "category": "utakmica",
-      "src": "assets/images/gallery2.jpg",
-      "caption": "FK Sava — demo galerija 2"
-    },
-    {
-      "id": "g3",
-      "year": 2016,
-      "category": "trening",
-      "src": "assets/images/gallery3.jpg",
-      "caption": "FK Sava — demo galerija 3"
-    },
-    {
-      "id": "g4",
-      "year": 2016,
-      "category": "utakmica",
-      "src": "assets/images/gallery4.jpg",
-      "caption": "FK Sava — demo galerija 4"
-    },
     {
       "id": "g5",
       "year": 2016,
