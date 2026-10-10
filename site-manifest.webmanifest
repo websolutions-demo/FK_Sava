@@ -1,0 +1,19 @@
+{
+  "id": "./",
+  "name": "FK Sava — Blok 45",
+  "short_name": "FK Sava",
+  "description": "FK Sava — Novi Beograd, Blok 45. Ekipe, utakmice, rezultati, galerija i kontakt.",
+  "lang": "sr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#090a0b",
+  "theme_color": "#090a0b",
+  "icons": [
+    {"src":"assets/icons/pwa-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"assets/icons/pwa-512.png","sizes":"512x512","type":"image/png","purpose":"any"},
+    {"src":"assets/icons/pwa-maskable-192.png","sizes":"192x192","type":"image/png","purpose":"maskable"},
+    {"src":"assets/icons/pwa-maskable-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}
+  ]
+}

@@ -287,3 +287,10 @@
     if(enrollModal?.classList.contains('open')) closeEnroll();
   });
 })();
+
+// Shared PWA service worker (public site + Sports Admin)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(err => console.warn('FK Sava SW:', err));
+  });
+}
