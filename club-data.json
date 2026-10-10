@@ -1,8 +1,8 @@
 {
   "meta": {
-    "schemaVersion": 2,
+    "schemaVersion": 3,
     "season": "2026/27",
-    "updatedAt": "2026-10-09T18:30:00+02:00"
+    "updatedAt": "2026-10-10T12:26:22.777Z"
   },
   "club": {
     "name": "FK Sava",
@@ -110,12 +110,12 @@
         },
         {
           "id": "2012-2",
-          "name": "Igrač 02",
-          "number": 3,
+          "name": "Jovan Došlo",
+          "number": 12,
           "position": "Odbrana",
-          "photo": "",
+          "photo": "assets/uploads/2012/1791635174591-4a72543d.webp",
           "active": true,
-          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+          "note": ""
         },
         {
           "id": "2012-3",
