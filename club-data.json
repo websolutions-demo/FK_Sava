@@ -2,7 +2,7 @@
   "meta": {
     "schemaVersion": 3,
     "season": "2026/27",
-    "updatedAt": "2026-10-10T12:35:28.886Z"
+    "updatedAt": "2026-10-10T12:36:43.070Z"
   },
   "club": {
     "name": "FK Sava",
@@ -115,7 +115,7 @@
           "position": "Odbrana",
           "photo": "assets/uploads/2012/1791635706462-4fca246d.webp",
           "active": true,
-          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+          "note": ""
         },
         {
           "id": "2012-3",
