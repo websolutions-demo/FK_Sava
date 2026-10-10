@@ -126,7 +126,7 @@
     drawerContent.innerHTML = `${drawerHead(group, `· ${players.length} igrača`)}${tabs(year,'players')}
       <div class="players-row">${players.map(p => {
         const s=playerStats(year,p.id);
-        return `<button class="player-card" data-player="${esc(p.id)}">${playerVisual(p)}<b>${esc(p.name)}</b><small>#${esc(p.number)} · ${esc(p.position)}</small><span class="mini-stats">${s.appearances} U · ${s.goals} G · ${s.assists} A</span></button>`;
+        return `<button class="player-card" data-player="${esc(p.id)}">${playerVisual(p)}<b>${esc(p.name)}</b><small>#${esc(p.number)} · ${esc(p.position)}</small><span class="mini-stats"><span><strong>${s.appearances}</strong><em>Nastupi</em></span><span><strong>${s.goals}</strong><em>Golovi</em></span><span><strong>${s.assists}</strong><em>Asist.</em></span></span></button>`;
       }).join('')}</div>
       <p class="drawer-hint">Statistika se automatski računa iz odigranih utakmica i unetih strelaca/asistenata.</p>`;
     bindTabs(year);
