@@ -2,7 +2,7 @@
   "meta": {
     "schemaVersion": 3,
     "season": "2026/27",
-    "updatedAt": "2026-10-10T12:36:43.070Z"
+    "updatedAt": "2026-10-10T14:27:21.407Z"
   },
   "club": {
     "name": "FK Sava",
@@ -113,7 +113,7 @@
           "name": "Jovan Došlo",
           "number": 12,
           "position": "Odbrana",
-          "photo": "assets/uploads/2012/1791635706462-4fca246d.webp",
+          "photo": "assets/uploads/2012/1791641118249-554c4eb2.webp",
           "active": true,
           "note": ""
         },
@@ -860,6 +860,27 @@
       "videoId": "",
       "image": "assets/images/match3.jpg",
       "note": "Najavljena utakmica."
+    },
+    {
+      "id": "2012-m-mv2h3wva-wczm2",
+      "year": 2012,
+      "date": "2026-10-11",
+      "time": "11:00",
+      "competition": "FSB",
+      "venue": "away",
+      "opponent": "Prva Iskra",
+      "status": "upcoming",
+      "scoreAgainst": null,
+      "lineup": [],
+      "events": [],
+      "videoId": "",
+      "image": "",
+      "note": "",
+      "venueName": "Stadion FK Prva Iskra",
+      "address": "Obrenovački put 33 , Barič",
+      "mapsUrl": "https://share.google/kMnBLsRVnqrgkQ8Im",
+      "latitude": "",
+      "longitude": ""
     }
   ],
   "gallery": [
