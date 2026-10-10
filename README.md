@@ -1,42 +1,41 @@
-# FK Sava — sajt + CMS V2 (GitHub + Render)
+# FK Sava — V5 Sports Admin
 
-Ovaj paket ima dve celine:
+Ovaj paket sadrži javni FK Sava sajt i mobilno prilagođen Sports Admin portal.
 
-1. **Javni sajt (GitHub Pages)** — `index.html`, `club-data.json`, `assets/...`
-2. **Admin CMS** — `admin.html` + mali bezbedni Node API u folderu `server/`
+## Javni sajt
 
-## Šta sada radi
+- igrači po godištima 2011–2020
+- statistika iz odigranih utakmica
+- rezultati i buduće utakmice
+- lokacija terena + dugme za navigaciju
+- YouTube video
+- galerija po godištu
 
-- Godišta 2011–2020.
-- Klik na godište otvara **Igrači / Utakmice / Galerija** u istom drawer-u.
-- Utakmice imaju status: najavljena / odigrana / odložena.
-- Rezultat FK Sava se računa iz liste golova.
-- Gol sadrži minut, strelca i opcionog asistenta.
-- Nastupi, golovi i asistencije igrača računaju se automatski iz utakmica.
-- Klik na utakmicu prikazuje rezultat, strelce i YouTube video ako je upisan.
-- Galerija može biti vezana za konkretno godište.
-- Admin može da dodaje/menja igrače, utakmice i galeriju.
-- Admin može da uploaduje JPG/PNG/WEBP direktno u GitHub repo.
-- Dugme **Objavi promene** direktno menja `club-data.json` u GitHub repozitorijumu.
-- GitHub token nikada nije u javnom sajtu ili browser kodu — nalazi se samo kao Render Environment Variable.
+## Sports Admin
 
-## Public data
+Otvori `admin.html`.
 
-Javni sajt prvo učitava `club-data.json` sa GitHub Pages. `assets/js/data.js` je samo fallback za lokalno otvaranje preko `file://`.
+Admin može da:
 
-## Jednokratno podešavanje CMS V2
+- dodaje i menja igrače po godištima
+- fotografiše/izabere sliku igrača na Android telefonu
+- automatski cropuje sliku igrača na 3:4, resize-uje i kompresuje pre slanja
+- unosi buduću utakmicu: datum, vreme, protivnik, takmičenje, teren, adresu, GPS/Google Maps link
+- unosi završenu utakmicu: sastav, rezultat protivnika, strelce, minute i opcione asistencije
+- doda YouTube link ili video ID
+- doda naslovnu sliku utakmice, automatski crop 16:9
+- dodaje više fotografija u galeriju odjednom; resize do 1600 px + WEBP kompresija
+- objavi promene direktno u `club-data.json` na GitHub-u
+- koristi lokalni draft ako browser/telefon zatvori portal pre objave
+- izvozi/uvozi JSON backup
 
-### 1. GitHub token
+Statistika igrača se NE unosi ručno. Nastupi, golovi i asistencije računaju se iz odigranih utakmica.
 
-Na GitHub nalogu koji poseduje `websolutions-demo/FK_Sava` napravi **fine-grained personal access token** ograničen samo na repo `FK_Sava` sa dozvolom:
+## Render Admin API
 
-- Repository permissions → **Contents: Read and write**
+Servis koristi folder `server/`.
 
-Token se NE upisuje u HTML/JS.
-
-### 2. Render API
-
-Repo već sadrži `render.yaml`. Na Render-u može Blueprint ili običan Web Service:
+Render podešavanja:
 
 - Root Directory: `server`
 - Build Command: `npm install`
@@ -49,36 +48,15 @@ Environment:
 - `GITHUB_REPO=FK_Sava`
 - `GITHUB_BRANCH=main`
 - `GITHUB_DATA_PATH=club-data.json`
-- `GITHUB_TOKEN=<fine-grained token>`
-- `ADMIN_PASSWORD=<lozinka za klub>`
-- `SESSION_SECRET=<dugačak slučajan string>`
-- `ALLOWED_ORIGINS=https://websolutions-demo.github.io`
+- `GITHUB_TOKEN=<fine-grained token, Contents read/write samo za ovaj repo>`
+- `ADMIN_PASSWORD=<lozinka za JR>`
+- `SESSION_SECRET=<Render generated secret>`
+- `ALLOWED_ORIGINS=https://websolutions-demo.github.io,http://localhost:8000,http://127.0.0.1:8000,null`
 
-Za lokalno testiranje možeš ostaviti vrednost iz `.env.example` koja uključuje localhost.
+API token nikad nije u javnom HTML/JS kodu. GitHub token se čuva samo na Render-u.
 
-### 3. Admin
+## Test bez Render-a
 
-Otvori:
+Na login ekranu klikni `Otvori lokalni demo`. Admin tada učitava lokalni `club-data.json`; unos i obrada UI-ja rade, ali objavljivanje i upload na GitHub nisu dostupni.
 
-`https://websolutions-demo.github.io/FK_Sava/admin.html`
-
-Prvi put unesi Render API URL, npr:
-
-`https://fk-sava-admin-api.onrender.com`
-
-Browser pamti samo API URL. Admin lozinka se ne čuva u localStorage-u. Sesija traje do 12 sati u sessionStorage-u.
-
-## Tok rada
-
-1. Izaberi godište.
-2. Dodaj igrače.
-3. Dodaj utakmicu.
-4. Kod odigrane utakmice označi sastav.
-5. Dodaj svaki gol: minut + strelac + asistencija.
-6. `Golovi FK Sava` = broj unetih golova; rezultat protivnika se unosi ručno.
-7. Klikni **Objavi promene**.
-8. API pravi commit u GitHub-u; GitHub Pages nakon svog deploy-a prikazuje nove podatke.
-
-## Privatnost maloletnika
-
-U javni deo unositi samo podatke koje klub/roditelji odobre (npr. ime, broj, pozicija, sportska statistika i fotografija). Ne unositi datum rođenja, školu, adresu ili druge privatne podatke.
+Za lokalni statički test koristi npr. `python -m http.server 8000` u root folderu i otvori `http://localhost:8000/admin.html`.

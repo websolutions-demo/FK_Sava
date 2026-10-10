@@ -1,0 +1,14 @@
+FK SAVA V5 SPORTS ADMIN — UPGRADE
+
+Zameni:
+- admin.html
+- assets/css/admin.css
+- assets/css/style.css
+- assets/js/admin.js
+- assets/js/app.js
+- server/server.mjs
+
+NE MORAŠ da menjaš postojeći club-data.json. V5 je kompatibilan sa V4 podacima.
+`club-data-v5-example.json` je samo primer nove šeme sa lokacijom utakmice.
+
+Ako još nemaš stvarne podatke, možeš primer preimenovati u club-data.json.

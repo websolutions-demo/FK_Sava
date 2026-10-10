@@ -11,6 +11,9 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
 const SESSION_SECRET = process.env.SESSION_SECRET || ADMIN_PASSWORD || 'change-me';
 const ALLOWED = new Set((process.env.ALLOWED_ORIGINS || 'https://websolutions-demo.github.io,http://localhost:8000,http://127.0.0.1:8000,null').split(',').map(x=>x.trim()).filter(Boolean));
 const MAX_BODY = 8 * 1024 * 1024;
+const loginAttempts = new Map();
+const LOGIN_WINDOW = 10 * 60 * 1000;
+const LOGIN_MAX = 6;
 
 function cors(req,res){
   const origin=req.headers.origin;
@@ -25,6 +28,10 @@ function send(req,res,status,obj){cors(req,res);res.writeHead(status,{'Content-T
 function readJson(req){return new Promise((resolve,reject)=>{let chunks=[],size=0;req.on('data',c=>{size+=c.length;if(size>MAX_BODY){reject(new Error('BODY_TOO_LARGE'));req.destroy();return;}chunks.push(c);});req.on('end',()=>{try{const text=Buffer.concat(chunks).toString('utf8');resolve(text?JSON.parse(text):{});}catch{reject(new Error('INVALID_JSON'));}});req.on('error',reject);});}
 function sha(s){return crypto.createHash('sha256').update(String(s)).digest();}
 function passwordOk(input){if(!ADMIN_PASSWORD)return false;return crypto.timingSafeEqual(sha(input),sha(ADMIN_PASSWORD));}
+function clientIp(req){return String(req.headers['x-forwarded-for']||req.socket.remoteAddress||'unknown').split(',')[0].trim();}
+function loginBlocked(ip){const now=Date.now();const x=loginAttempts.get(ip);if(!x||now-x.start>LOGIN_WINDOW){loginAttempts.set(ip,{start:now,count:0});return false;}return x.count>=LOGIN_MAX;}
+function noteLoginFail(ip){const now=Date.now();let x=loginAttempts.get(ip);if(!x||now-x.start>LOGIN_WINDOW)x={start:now,count:0};x.count+=1;loginAttempts.set(ip,x);}
+function clearLoginFails(ip){loginAttempts.delete(ip);}
 function b64url(input){return Buffer.from(input).toString('base64url');}
 function sign(payload){return crypto.createHmac('sha256',SESSION_SECRET).update(payload).digest('base64url');}
 function createSession(){const payload=b64url(JSON.stringify({exp:Date.now()+12*60*60*1000}));return `${payload}.${sign(payload)}`;}
@@ -59,8 +66,11 @@ const server=http.createServer(async(req,res)=>{
     if(url.pathname==='/')return send(req,res,200,{ok:true,name:'FK Sava Admin API'});
 
     if(url.pathname==='/api/login'&&req.method==='POST'){
+      const ip=clientIp(req);
+      if(loginBlocked(ip))return send(req,res,429,{error:'Previše neuspešnih prijava. Pokušaj ponovo za nekoliko minuta.'});
       const body=await readJson(req);
-      if(!passwordOk(body.password||''))return send(req,res,401,{error:'Pogrešna admin lozinka.'});
+      if(!passwordOk(body.password||'')){noteLoginFail(ip);return send(req,res,401,{error:'Pogrešna admin lozinka.'});}
+      clearLoginFails(ip);
       return send(req,res,200,{token:createSession(),expiresHours:12});
     }
     if(!url.pathname.startsWith('/api/'))return send(req,res,404,{error:'Not found'});
@@ -75,7 +85,7 @@ const server=http.createServer(async(req,res)=>{
     if(url.pathname==='/api/club-data'&&req.method==='PUT'){
       const body=await readJson(req); const d=body.data; const err=validateData(d);if(err)return send(req,res,400,{error:err});
       const current=await ghGet(DATA_PATH);
-      d.meta=d.meta||{};d.meta.updatedAt=new Date().toISOString();d.meta.schemaVersion=2;
+      d.meta=d.meta||{};d.meta.updatedAt=new Date().toISOString();d.meta.schemaVersion=3;
       const content=Buffer.from(JSON.stringify(d,null,2),'utf8').toString('base64');
       const out=await ghPut(DATA_PATH,content,`FK Sava CMS: update ${new Date().toISOString()}`,current.sha);
       return send(req,res,200,{ok:true,commitSha:out.commit?.sha||'',contentSha:out.content?.sha||''});

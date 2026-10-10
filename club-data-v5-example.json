@@ -1,0 +1,1059 @@
+{
+  "meta": {
+    "schemaVersion": 3,
+    "season": "2026/27",
+    "updatedAt": "2026-10-09T18:30:00+02:00",
+    "adminName": "Jovan Došlo · JR · Jojster"
+  },
+  "club": {
+    "name": "FK Sava",
+    "location": "Blok 45, Novi Beograd",
+    "founded": 1973,
+    "phoneDisplay": "065 / 251 88 45",
+    "phoneTel": "+381652518845",
+    "youtubeSearch": "https://www.youtube.com/results?search_query=FK+Sava+45",
+    "youtubeChannel": "",
+    "instagram": "https://www.instagram.com/fk_sava_45/"
+  },
+  "years": [
+    {
+      "year": 2011,
+      "coach": "Trener — podatak kluba",
+      "image": "assets/images/age-2011.jpg",
+      "players": [
+        {
+          "id": "2011-1",
+          "name": "Igrač 01",
+          "number": 1,
+          "position": "Golman",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2011-2",
+          "name": "Igrač 02",
+          "number": 3,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2011-3",
+          "name": "Igrač 03",
+          "number": 5,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2011-4",
+          "name": "Igrač 04",
+          "number": 7,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2011-5",
+          "name": "Igrač 05",
+          "number": 8,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2011-6",
+          "name": "Igrač 06",
+          "number": 9,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2011-7",
+          "name": "Igrač 07",
+          "number": 10,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2011-8",
+          "name": "Igrač 08",
+          "number": 11,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        }
+      ]
+    },
+    {
+      "year": 2012,
+      "coach": "Trener — podatak kluba",
+      "image": "assets/images/age-2012.jpg",
+      "players": [
+        {
+          "id": "2012-1",
+          "name": "Igrač 01",
+          "number": 1,
+          "position": "Golman",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2012-2",
+          "name": "Igrač 02",
+          "number": 3,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2012-3",
+          "name": "Igrač 03",
+          "number": 5,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2012-4",
+          "name": "Igrač 04",
+          "number": 7,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2012-5",
+          "name": "Igrač 05",
+          "number": 8,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2012-6",
+          "name": "Igrač 06",
+          "number": 9,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2012-7",
+          "name": "Igrač 07",
+          "number": 10,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2012-8",
+          "name": "Igrač 08",
+          "number": 11,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        }
+      ]
+    },
+    {
+      "year": 2013,
+      "coach": "Trener — podatak kluba",
+      "image": "assets/images/age-2013.jpg",
+      "players": [
+        {
+          "id": "2013-1",
+          "name": "Igrač 01",
+          "number": 1,
+          "position": "Golman",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2013-2",
+          "name": "Igrač 02",
+          "number": 3,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2013-3",
+          "name": "Igrač 03",
+          "number": 5,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2013-4",
+          "name": "Igrač 04",
+          "number": 7,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2013-5",
+          "name": "Igrač 05",
+          "number": 8,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2013-6",
+          "name": "Igrač 06",
+          "number": 9,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2013-7",
+          "name": "Igrač 07",
+          "number": 10,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2013-8",
+          "name": "Igrač 08",
+          "number": 11,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        }
+      ]
+    },
+    {
+      "year": 2014,
+      "coach": "Trener — podatak kluba",
+      "image": "assets/images/age-2014.jpg",
+      "players": [
+        {
+          "id": "2014-1",
+          "name": "Igrač 01",
+          "number": 1,
+          "position": "Golman",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2014-2",
+          "name": "Igrač 02",
+          "number": 3,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2014-3",
+          "name": "Igrač 03",
+          "number": 5,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2014-4",
+          "name": "Igrač 04",
+          "number": 7,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2014-5",
+          "name": "Igrač 05",
+          "number": 8,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2014-6",
+          "name": "Igrač 06",
+          "number": 9,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2014-7",
+          "name": "Igrač 07",
+          "number": 10,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2014-8",
+          "name": "Igrač 08",
+          "number": 11,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        }
+      ]
+    },
+    {
+      "year": 2015,
+      "coach": "Trener — podatak kluba",
+      "image": "assets/images/age-2015.jpg",
+      "players": [
+        {
+          "id": "2015-1",
+          "name": "Igrač 01",
+          "number": 1,
+          "position": "Golman",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2015-2",
+          "name": "Igrač 02",
+          "number": 3,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2015-3",
+          "name": "Igrač 03",
+          "number": 5,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2015-4",
+          "name": "Igrač 04",
+          "number": 7,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2015-5",
+          "name": "Igrač 05",
+          "number": 8,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2015-6",
+          "name": "Igrač 06",
+          "number": 9,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2015-7",
+          "name": "Igrač 07",
+          "number": 10,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2015-8",
+          "name": "Igrač 08",
+          "number": 11,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        }
+      ]
+    },
+    {
+      "year": 2016,
+      "coach": "Trener — podatak kluba",
+      "image": "assets/images/age-2016.jpg",
+      "players": [
+        {
+          "id": "2016-1",
+          "name": "Igrač 01",
+          "number": 1,
+          "position": "Golman",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2016-2",
+          "name": "Igrač 02",
+          "number": 3,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2016-3",
+          "name": "Igrač 03",
+          "number": 5,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2016-4",
+          "name": "Igrač 04",
+          "number": 7,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2016-5",
+          "name": "Igrač 05",
+          "number": 8,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2016-6",
+          "name": "Igrač 06",
+          "number": 9,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2016-7",
+          "name": "Igrač 07",
+          "number": 10,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2016-8",
+          "name": "Igrač 08",
+          "number": 11,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "coach": "Trener — podatak kluba",
+      "image": "assets/images/age-2017.jpg",
+      "players": [
+        {
+          "id": "2017-1",
+          "name": "Igrač 01",
+          "number": 1,
+          "position": "Golman",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2017-2",
+          "name": "Igrač 02",
+          "number": 3,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2017-3",
+          "name": "Igrač 03",
+          "number": 5,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2017-4",
+          "name": "Igrač 04",
+          "number": 7,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2017-5",
+          "name": "Igrač 05",
+          "number": 8,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2017-6",
+          "name": "Igrač 06",
+          "number": 9,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2017-7",
+          "name": "Igrač 07",
+          "number": 10,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2017-8",
+          "name": "Igrač 08",
+          "number": 11,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "coach": "Trener — podatak kluba",
+      "image": "assets/images/age-2018.jpg",
+      "players": [
+        {
+          "id": "2018-1",
+          "name": "Igrač 01",
+          "number": 1,
+          "position": "Golman",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2018-2",
+          "name": "Igrač 02",
+          "number": 3,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2018-3",
+          "name": "Igrač 03",
+          "number": 5,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2018-4",
+          "name": "Igrač 04",
+          "number": 7,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2018-5",
+          "name": "Igrač 05",
+          "number": 8,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2018-6",
+          "name": "Igrač 06",
+          "number": 9,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2018-7",
+          "name": "Igrač 07",
+          "number": 10,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2018-8",
+          "name": "Igrač 08",
+          "number": 11,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "coach": "Trener — podatak kluba",
+      "image": "assets/images/age-2019.jpg",
+      "players": [
+        {
+          "id": "2019-1",
+          "name": "Igrač 01",
+          "number": 1,
+          "position": "Golman",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2019-2",
+          "name": "Igrač 02",
+          "number": 3,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2019-3",
+          "name": "Igrač 03",
+          "number": 5,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2019-4",
+          "name": "Igrač 04",
+          "number": 7,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2019-5",
+          "name": "Igrač 05",
+          "number": 8,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2019-6",
+          "name": "Igrač 06",
+          "number": 9,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2019-7",
+          "name": "Igrač 07",
+          "number": 10,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2019-8",
+          "name": "Igrač 08",
+          "number": 11,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        }
+      ]
+    },
+    {
+      "year": 2020,
+      "coach": "Trener — podatak kluba",
+      "image": "assets/images/age-2020.jpg",
+      "players": [
+        {
+          "id": "2020-1",
+          "name": "Igrač 01",
+          "number": 1,
+          "position": "Golman",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2020-2",
+          "name": "Igrač 02",
+          "number": 3,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2020-3",
+          "name": "Igrač 03",
+          "number": 5,
+          "position": "Odbrana",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2020-4",
+          "name": "Igrač 04",
+          "number": 7,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2020-5",
+          "name": "Igrač 05",
+          "number": 8,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2020-6",
+          "name": "Igrač 06",
+          "number": 9,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2020-7",
+          "name": "Igrač 07",
+          "number": 10,
+          "position": "Vezni",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        },
+        {
+          "id": "2020-8",
+          "name": "Igrač 08",
+          "number": 11,
+          "position": "Napadač",
+          "photo": "",
+          "active": true,
+          "note": "Demo profil — zameniti podacima koje klub i roditelji odobre."
+        }
+      ]
+    }
+  ],
+  "matches": [
+    {
+      "id": "2016-m1",
+      "year": 2016,
+      "date": "2026-10-05",
+      "time": "10:00",
+      "competition": "Prijateljska utakmica",
+      "venue": "home",
+      "opponent": "FK Bežanija",
+      "status": "played",
+      "scoreAgainst": 2,
+      "lineup": [
+        "2016-1",
+        "2016-2",
+        "2016-3",
+        "2016-4",
+        "2016-5",
+        "2016-6",
+        "2016-7",
+        "2016-8"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "minute": 12,
+          "scorerId": "2016-4",
+          "assistPlayerId": "2016-7"
+        },
+        {
+          "type": "goal",
+          "minute": 27,
+          "scorerId": "2016-6",
+          "assistPlayerId": "2016-4"
+        },
+        {
+          "type": "goal",
+          "minute": 43,
+          "scorerId": "2016-4",
+          "assistPlayerId": ""
+        },
+        {
+          "type": "goal",
+          "minute": 58,
+          "scorerId": "2016-8",
+          "assistPlayerId": "2016-5"
+        }
+      ],
+      "videoId": "ACb081-H7eE",
+      "image": "assets/images/match1.jpg",
+      "note": "Demo podaci — zameniti stvarnim rezultatom.",
+      "venueName": "Teren FK Sava, Blok 45",
+      "address": "",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=FK%20Sava%20Blok%2045%20Novi%20Beograd",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "id": "2016-m2",
+      "year": 2016,
+      "date": "2026-10-12",
+      "time": "11:00",
+      "competition": "Liga mlađih kategorija",
+      "venue": "away",
+      "opponent": "FK Zemun",
+      "status": "played",
+      "scoreAgainst": 1,
+      "lineup": [
+        "2016-1",
+        "2016-2",
+        "2016-3",
+        "2016-4",
+        "2016-5",
+        "2016-6",
+        "2016-7",
+        "2016-8"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "minute": 19,
+          "scorerId": "2016-7",
+          "assistPlayerId": "2016-4"
+        },
+        {
+          "type": "goal",
+          "minute": 36,
+          "scorerId": "2016-6",
+          "assistPlayerId": "2016-5"
+        },
+        {
+          "type": "goal",
+          "minute": 61,
+          "scorerId": "2016-6",
+          "assistPlayerId": "2016-7"
+        }
+      ],
+      "videoId": "",
+      "image": "assets/images/match2.jpg",
+      "note": "Demo podaci.",
+      "venueName": "Lokacija protivnika — dopuniti",
+      "address": "",
+      "mapsUrl": "",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "id": "2016-m3",
+      "year": 2016,
+      "date": "2026-10-19",
+      "time": "10:30",
+      "competition": "Liga mlađih kategorija",
+      "venue": "home",
+      "opponent": "FK Novi Beograd",
+      "status": "upcoming",
+      "scoreAgainst": null,
+      "lineup": [],
+      "events": [],
+      "videoId": "",
+      "image": "assets/images/match3.jpg",
+      "note": "Najavljena utakmica.",
+      "venueName": "Teren FK Sava, Blok 45",
+      "address": "",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=FK%20Sava%20Blok%2045%20Novi%20Beograd",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "id": "2014-m1",
+      "year": 2014,
+      "date": "2026-10-04",
+      "time": "09:00",
+      "competition": "Prijateljska utakmica",
+      "venue": "home",
+      "opponent": "FK IMT",
+      "status": "played",
+      "scoreAgainst": 3,
+      "lineup": [
+        "2014-1",
+        "2014-2",
+        "2014-3",
+        "2014-4",
+        "2014-5",
+        "2014-6",
+        "2014-7",
+        "2014-8"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "minute": 15,
+          "scorerId": "2014-4",
+          "assistPlayerId": "2014-7"
+        },
+        {
+          "type": "goal",
+          "minute": 39,
+          "scorerId": "2014-6",
+          "assistPlayerId": "2014-5"
+        }
+      ],
+      "videoId": "",
+      "image": "assets/images/match4.jpg",
+      "note": "Demo podaci.",
+      "venueName": "Teren FK Sava, Blok 45",
+      "address": "",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=FK%20Sava%20Blok%2045%20Novi%20Beograd",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "id": "2018-m1",
+      "year": 2018,
+      "date": "2026-10-26",
+      "time": "09:30",
+      "competition": "Prijateljska utakmica",
+      "venue": "away",
+      "opponent": "FK Radnički",
+      "status": "upcoming",
+      "scoreAgainst": null,
+      "lineup": [],
+      "events": [],
+      "videoId": "",
+      "image": "assets/images/match3.jpg",
+      "note": "Najavljena utakmica.",
+      "venueName": "Lokacija protivnika — dopuniti",
+      "address": "",
+      "mapsUrl": "",
+      "latitude": "",
+      "longitude": ""
+    }
+  ],
+  "gallery": [
+    {
+      "id": "g1",
+      "year": 2016,
+      "category": "utakmica",
+      "src": "assets/images/gallery1.jpg",
+      "caption": "FK Sava — demo galerija 1"
+    },
+    {
+      "id": "g2",
+      "year": 2016,
+      "category": "utakmica",
+      "src": "assets/images/gallery2.jpg",
+      "caption": "FK Sava — demo galerija 2"
+    },
+    {
+      "id": "g3",
+      "year": 2016,
+      "category": "trening",
+      "src": "assets/images/gallery3.jpg",
+      "caption": "FK Sava — demo galerija 3"
+    },
+    {
+      "id": "g4",
+      "year": 2016,
+      "category": "utakmica",
+      "src": "assets/images/gallery4.jpg",
+      "caption": "FK Sava — demo galerija 4"
+    },
+    {
+      "id": "g5",
+      "year": 2016,
+      "category": "trening",
+      "src": "assets/images/gallery5.jpg",
+      "caption": "FK Sava — demo galerija 5"
+    },
+    {
+      "id": "g6",
+      "year": 2014,
+      "category": "trening",
+      "src": "assets/images/gallery6.jpg",
+      "caption": "FK Sava — demo galerija 6"
+    },
+    {
+      "id": "g7",
+      "year": null,
+      "category": "trening",
+      "src": "assets/images/instagram-1.jpg",
+      "caption": "FK Sava — demo galerija 7"
+    },
+    {
+      "id": "g8",
+      "year": null,
+      "category": "trening",
+      "src": "assets/images/instagram-2.jpg",
+      "caption": "FK Sava — demo galerija 8"
+    }
+  ]
+}
