@@ -50,12 +50,7 @@
   const resultText = m => m.status === 'played'
     ? (m.venue === 'away' ? `${m.scoreAgainst ?? 0} : ${scoreFor(m)}` : `${scoreFor(m)} : ${m.scoreAgainst ?? 0}`)
     : (m.status === 'postponed' ? 'ODLOŽENO' : 'USKORO');
-  const mapsUrl = m => {
-    if(m.mapsUrl) return m.mapsUrl;
-    if(m.latitude && m.longitude) return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${m.latitude},${m.longitude}`)}`;
-    const q=[m.venueName,m.address].filter(Boolean).join(', ');
-    return q ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}` : '';
-  };
+  const mapsUrl = m => String(m.mapsUrl || '').trim();
   const coachInfo = group => {
     const raw=group?.coach;
     if(raw && typeof raw==='object') return {
@@ -186,7 +181,7 @@
         <span class="section-kicker">${esc(m.competition || 'UTAKMICA')} · ${esc(fmtDate(m.date))}</span>
         <h2>${esc(matchTitle(m))}</h2>
         <div class="big-score">${esc(resultText(m))}</div>
-        ${m.venueName||m.address?`<div class="match-location-card"><b>📍 ${esc(m.venueName||'Lokacija utakmice')}</b>${m.address?`<span>${esc(m.address)}</span>`:''}${mapsUrl(m)?`<a class="btn btn-gold" href="${esc(mapsUrl(m))}" target="_blank" rel="noopener">Otvori navigaciju</a>`:''}</div>`:''}
+        ${m.venueName||m.address?`<div class="match-location-card"><b>📍 ${esc(m.venueName||'Lokacija utakmice')}</b>${m.address?`<span>${esc(m.address)}</span>`:''}${mapsUrl(m)?`<a class="btn btn-gold" href="${esc(mapsUrl(m))}" target="_blank" rel="noopener">Pokreni navigaciju</a>`:''}</div>`:''}
         ${m.status==='played' ? `<div class="goal-list"><h3>Golovi FK Sava</h3>${goals.length?goals.map(g=>`<div><b>⚽ ${esc(g.minute || '?')}'</b><span>${esc(playerName(year,g.scorerId))}${g.assistPlayerId?` · asist. ${esc(playerName(year,g.assistPlayerId))}`:''}</span></div>`).join(''):'<p>Nema unetih strelaca.</p>'}</div>` : `<p class="upcoming-note">${esc(m.note || 'Najavljena utakmica.')}</p>`}
         <div class="player-bottom">${m.videoId?`<button class="btn btn-youtube" id="matchVideoBtn">▶ Pogledaj video</button>`:''}<button class="btn btn-dark" id="backToMatches2">Nazad na tabelu</button></div>
       </div>`;
@@ -217,7 +212,7 @@
   function openMatchModal(m){
     const media=m.videoId?`<div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(m.videoId)}?rel=0" title="${esc(matchTitle(m))}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`:`<div class="video-placeholder" style="background-image:url('${safeSrc(m.image || 'assets/images/match1.jpg')}')"><span>⚽</span><small>${esc(m.status==='upcoming'?'Utakmica je u najavi':'Video još nije dodat')}</small></div>`;
     const goals=(m.events||[]).filter(e=>e.type==='goal');
-    videoContent.innerHTML=`${media}<div class="video-info"><span class="section-kicker">${esc(m.year)} · ${esc(fmtDate(m.date))}</span><h2 id="videoTitle">${esc(matchTitle(m))}</h2><div class="modal-result">${esc(resultText(m))}</div>${m.venueName?`<p class="modal-location">📍 ${esc(m.venueName)}${m.address?` · ${esc(m.address)}`:''}</p>`:''}${goals.length?`<p>${goals.map(g=>`⚽ ${esc(g.minute)}' ${esc(playerName(m.year,g.scorerId))}`).join('<br>')}</p>`:''}<div class="modal-actions">${mapsUrl(m)?`<a class="btn btn-gold" href="${esc(mapsUrl(m))}" target="_blank" rel="noopener">📍 Navigacija</a>`:''}${m.videoId?`<a class="btn btn-youtube" href="https://www.youtube.com/watch?v=${encodeURIComponent(m.videoId)}" target="_blank" rel="noopener">▶ Otvori na YouTube-u</a>`:`<a class="btn btn-dark" href="${esc(club.youtubeSearch || '#')}" target="_blank" rel="noopener">YouTube kanal / pretraga</a>`}</div></div>`;
+    videoContent.innerHTML=`${media}<div class="video-info"><span class="section-kicker">${esc(m.year)} · ${esc(fmtDate(m.date))}</span><h2 id="videoTitle">${esc(matchTitle(m))}</h2><div class="modal-result">${esc(resultText(m))}</div>${m.venueName?`<p class="modal-location">📍 ${esc(m.venueName)}${m.address?` · ${esc(m.address)}`:''}</p>`:''}${goals.length?`<p>${goals.map(g=>`⚽ ${esc(g.minute)}' ${esc(playerName(m.year,g.scorerId))}`).join('<br>')}</p>`:''}<div class="modal-actions">${mapsUrl(m)?`<a class="btn btn-gold" href="${esc(mapsUrl(m))}" target="_blank" rel="noopener">📍 Pokreni navigaciju</a>`:''}${m.videoId?`<a class="btn btn-youtube" href="https://www.youtube.com/watch?v=${encodeURIComponent(m.videoId)}" target="_blank" rel="noopener">▶ Otvori na YouTube-u</a>`:`<a class="btn btn-dark" href="${esc(club.youtubeSearch || '#')}" target="_blank" rel="noopener">YouTube kanal / pretraga</a>`}</div></div>`;
     videoModal.classList.add('open'); videoModal.setAttribute('aria-hidden','false'); body.classList.add('no-scroll');
   }
   function closeVideo(){ videoModal.classList.remove('open'); videoModal.setAttribute('aria-hidden','true'); videoContent.innerHTML=''; body.classList.remove('no-scroll'); }
