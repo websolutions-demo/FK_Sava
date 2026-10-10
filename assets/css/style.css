@@ -158,3 +158,33 @@
   #coachContactModal .coach-contact-card .section-kicker{display:block;margin-top:-34px;padding-right:58px}
   #coachContactModal .coach-contact-card h2{padding-right:58px}
 }
+
+/* V6.4 match UX polish */
+.team-match-row{grid-template-columns:170px 1fr 110px;padding:14px 16px;gap:14px;}
+.team-match-row .match-row-date{display:flex;flex-direction:column;gap:6px;}
+.team-match-row .match-row-date b{font-size:.98rem;line-height:1.1;}
+.team-match-row .match-row-meta{color:#d9dadb;font-size:.9rem;font-weight:700;line-height:1.2;}
+.team-match-row .match-row-location{color:#9ea0a1;font-size:.8rem;line-height:1.2;}
+.team-match-row .match-opponent{font-size:1rem;line-height:1.25;}
+.team-match-row strong{min-width:92px;font-size:1rem;font-weight:900;padding:10px 8px;}
+.team-match-row.is-upcoming strong{background:rgba(255,194,24,.14);color:var(--gold);border:1px solid rgba(255,194,24,.25);}
+.team-match-row.is-played strong{border:1px solid rgba(255,194,24,.18);}
+.match-detail-pills{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 8px;}
+.detail-pill{display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid #34373a;background:#111315;color:#d8d9da;font-size:.9rem;font-weight:800;letter-spacing:.02em;}
+.detail-pill-time{background:rgba(255,194,24,.12);border-color:rgba(255,194,24,.28);color:var(--gold);}
+.detail-pill-status{text-transform:uppercase;}
+.big-score.big-time{min-width:160px;text-align:center;}
+.modal-time{margin:.2rem 0 .45rem;color:var(--gold);font-weight:800;}
+@media(max-width:900px){.team-match-row{grid-template-columns:132px 1fr 96px;}}
+@media(max-width:720px){
+  .team-match-row{grid-template-columns:1fr auto;gap:8px;padding:14px;}
+  .team-match-row .match-row-date{grid-column:1/-1;gap:5px;}
+  .team-match-row .match-row-date b{font-size:1rem;}
+  .team-match-row .match-row-meta{font-size:.95rem;color:#ececec;}
+  .team-match-row .match-row-location{font-size:.82rem;}
+  .team-match-row .match-opponent{grid-row:2;grid-column:1;font-size:1rem;}
+  .team-match-row strong{grid-row:2;grid-column:2;min-width:88px;font-size:1rem;}
+  .big-score.big-time{font-size:2rem;width:100%;}
+  .match-detail-pills{gap:8px;}
+  .detail-pill{font-size:.86rem;padding:7px 10px;}
+}

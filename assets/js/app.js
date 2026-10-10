@@ -50,7 +50,29 @@
   const resultText = m => m.status === 'played'
     ? (m.venue === 'away' ? `${m.scoreAgainst ?? 0} : ${scoreFor(m)}` : `${scoreFor(m)} : ${m.scoreAgainst ?? 0}`)
     : (m.status === 'postponed' ? 'ODLOŽENO' : 'USKORO');
-  const mapsUrl = m => String(m.mapsUrl || '').trim();
+  const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const mapQuery = m => [m.venueName, m.address].filter(Boolean).join(', ');
+  const mapsUrl = m => {
+    if(m.mapsUrl) return m.mapsUrl;
+    if(m.latitude && m.longitude) return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${m.latitude},${m.longitude}`)}`;
+    const q = mapQuery(m);
+    return q ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}` : '';
+  };
+  const navigationUrl = m => {
+    const q = mapQuery(m);
+    if(isIOS()){
+      const destination = q || m.mapsUrl || '';
+      if(!destination) return '';
+      const params = [];
+      if(m.venueName) params.push(`q=${encodeURIComponent(m.venueName)}`);
+      params.push(`daddr=${encodeURIComponent(destination)}`);
+      return `https://maps.apple.com/?${params.join('&')}`;
+    }
+    return mapsUrl(m);
+  };
+  const navigationLabel = () => isIOS() ? 'Otvori u Maps' : 'Otvori navigaciju';
+  const matchStatusLabel = m => m.status === 'played' ? 'ZAVRŠENO' : (m.status === 'postponed' ? 'ODLOŽENO' : 'U NAJAVI');
+  const matchPrimaryBadge = m => m.status === 'played' ? resultText(m) : (m.status === 'postponed' ? 'ODLOŽENO' : (m.time || 'Termin uskoro'));
   const coachInfo = group => {
     const raw=group?.coach;
     if(raw && typeof raw==='object') return {
@@ -161,7 +183,20 @@
   }
   function matchRows(list, year){
     if(!list.length) return `<div class="empty-state">Još nema unetih utakmica.</div>`;
-    return `<div class="team-match-list">${list.map(m=>`<button class="team-match-row" data-match-id="${esc(m.id)}"><span><b>${esc(fmtDate(m.date))}</b><small>${esc(m.time || '')} · ${esc(m.competition || '')}${m.venueName?`<br>📍 ${esc(m.venueName)}`:''}</small></span><span class="match-opponent">${esc(matchTitle(m))}</span><strong class="${m.status==='played'?'result-played':'result-upcoming'}">${esc(resultText(m))}</strong></button>`).join('')}</div>`;
+    return `<div class="team-match-list">${list.map(m=>{
+      const isPlayed = m.status === 'played';
+      const primaryBadge = matchPrimaryBadge(m);
+      const metaLine = [m.time, m.competition].filter(Boolean).join(' · ');
+      return `<button class="team-match-row ${isPlayed ? 'is-played' : 'is-upcoming'}" data-match-id="${esc(m.id)}">
+        <span class="match-row-date">
+          <b>${esc(fmtDate(m.date))}</b>
+          ${metaLine ? `<small class="match-row-meta">${esc(metaLine)}</small>` : ''}
+          ${m.venueName ? `<small class="match-row-location">📍 ${esc(m.venueName)}</small>` : ''}
+        </span>
+        <span class="match-opponent">${esc(matchTitle(m))}</span>
+        <strong class="${isPlayed ? 'result-played' : 'result-upcoming'}">${esc(primaryBadge)}</strong>
+      </button>`;
+    }).join('')}</div>`;
   }
   function renderAgeMatches(year){
     const group=groupFor(year); if(!group) return;
@@ -176,14 +211,21 @@
   function renderMatchDetail(year,id){
     const m=matches.find(m=>m.id===id); if(!m) return;
     const goals=(m.events||[]).filter(e=>e.type==='goal');
+    const navHref = navigationUrl(m);
+    const isPlayed = m.status === 'played';
+    const detailBadge = isPlayed ? resultText(m) : (m.status === 'postponed' ? 'ODLOŽENO' : (m.time || 'Termin uskoro'));
     drawerContent.innerHTML = `<button class="back-link" id="backToMatches">← Utakmice ${esc(year)}</button>
       <div class="match-detail">
         <span class="section-kicker">${esc(m.competition || 'UTAKMICA')} · ${esc(fmtDate(m.date))}</span>
         <h2>${esc(matchTitle(m))}</h2>
-        <div class="big-score">${esc(resultText(m))}</div>
-        ${m.venueName||m.address?`<div class="match-location-card"><b>📍 ${esc(m.venueName||'Lokacija utakmice')}</b>${m.address?`<span>${esc(m.address)}</span>`:''}${mapsUrl(m)?`<a class="btn btn-gold" href="${esc(mapsUrl(m))}" target="_blank" rel="noopener">Pokreni navigaciju</a>`:''}</div>`:''}
-        ${m.status==='played' ? `<div class="goal-list"><h3>Golovi FK Sava</h3>${goals.length?goals.map(g=>`<div><b>⚽ ${esc(g.minute || '?')}'</b><span>${esc(playerName(year,g.scorerId))}${g.assistPlayerId?` · asist. ${esc(playerName(year,g.assistPlayerId))}`:''}</span></div>`).join(''):'<p>Nema unetih strelaca.</p>'}</div>` : `<p class="upcoming-note">${esc(m.note || 'Najavljena utakmica.')}</p>`}
-        <div class="player-bottom">${m.videoId?`<button class="btn btn-youtube" id="matchVideoBtn">▶ Pogledaj video</button>`:''}<button class="btn btn-dark" id="backToMatches2">Nazad na tabelu</button></div>
+        <div class="match-detail-pills">
+          ${m.time ? `<span class="detail-pill detail-pill-time">🕒 ${esc(m.time)}</span>` : ''}
+          <span class="detail-pill detail-pill-status">${esc(matchStatusLabel(m))}</span>
+        </div>
+        <div class="big-score ${isPlayed ? '' : 'big-time'}">${esc(detailBadge)}</div>
+        ${m.venueName||m.address ? `<div class="match-location-card"><b>📍 ${esc(m.venueName||'Lokacija utakmice')}</b>${m.address ? `<span>${esc(m.address)}</span>` : ''}${navHref ? `<a class="btn btn-gold" href="${esc(navHref)}" rel="noopener">${navigationLabel()}</a>` : ''}</div>` : ''}
+        ${isPlayed ? `<div class="goal-list"><h3>Golovi FK Sava</h3>${goals.length ? goals.map(g=>`<div><b>⚽ ${esc(g.minute || '?')}'</b><span>${esc(playerName(year,g.scorerId))}${g.assistPlayerId ? ` · asist. ${esc(playerName(year,g.assistPlayerId))}` : ''}</span></div>`).join('') : '<p>Nema unetih strelaca.</p>'}</div>` : `<p class="upcoming-note">${esc(m.note || 'Najavljena utakmica.')}</p>`}
+        <div class="player-bottom">${m.videoId ? `<button class="btn btn-youtube" id="matchVideoBtn">▶ Pogledaj video</button>` : ''}<button class="btn btn-dark" id="backToMatches2">Nazad na tabelu</button></div>
       </div>`;
     qs('#backToMatches').onclick=()=>renderAgeMatches(year);
     qs('#backToMatches2').onclick=()=>renderAgeMatches(year);
@@ -210,9 +252,12 @@
   });
   const videoModal=qs('#videoModal'), videoContent=qs('#videoContent');
   function openMatchModal(m){
-    const media=m.videoId?`<div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(m.videoId)}?rel=0" title="${esc(matchTitle(m))}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`:`<div class="video-placeholder" style="background-image:url('${safeSrc(m.image || 'assets/images/match1.jpg')}')"><span>⚽</span><small>${esc(m.status==='upcoming'?'Utakmica je u najavi':'Video još nije dodat')}</small></div>`;
+    const media = m.videoId
+      ? `<div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(m.videoId)}?rel=0" title="${esc(matchTitle(m))}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`
+      : `<div class="video-placeholder" style="background-image:url('${safeSrc(m.image || 'assets/images/match1.jpg')}')"><span>⚽</span><small>${esc(m.status==='upcoming'?'Utakmica je u najavi':'Video još nije dodat')}</small></div>`;
     const goals=(m.events||[]).filter(e=>e.type==='goal');
-    videoContent.innerHTML=`${media}<div class="video-info"><span class="section-kicker">${esc(m.year)} · ${esc(fmtDate(m.date))}</span><h2 id="videoTitle">${esc(matchTitle(m))}</h2><div class="modal-result">${esc(resultText(m))}</div>${m.venueName?`<p class="modal-location">📍 ${esc(m.venueName)}${m.address?` · ${esc(m.address)}`:''}</p>`:''}${goals.length?`<p>${goals.map(g=>`⚽ ${esc(g.minute)}' ${esc(playerName(m.year,g.scorerId))}`).join('<br>')}</p>`:''}<div class="modal-actions">${mapsUrl(m)?`<a class="btn btn-gold" href="${esc(mapsUrl(m))}" target="_blank" rel="noopener">📍 Pokreni navigaciju</a>`:''}${m.videoId?`<a class="btn btn-youtube" href="https://www.youtube.com/watch?v=${encodeURIComponent(m.videoId)}" target="_blank" rel="noopener">▶ Otvori na YouTube-u</a>`:`<a class="btn btn-dark" href="${esc(club.youtubeSearch || '#')}" target="_blank" rel="noopener">YouTube kanal / pretraga</a>`}</div></div>`;
+    const navHref = navigationUrl(m);
+    videoContent.innerHTML = `${media}<div class="video-info"><span class="section-kicker">${esc(m.year)} · ${esc(fmtDate(m.date))}</span><h2 id="videoTitle">${esc(matchTitle(m))}</h2><div class="modal-result">${esc(resultText(m))}</div>${m.time ? `<p class="modal-time">🕒 ${esc(m.time)}</p>` : ''}${m.venueName ? `<p class="modal-location">📍 ${esc(m.venueName)}${m.address ? ` · ${esc(m.address)}` : ''}</p>` : ''}${goals.length ? `<p>${goals.map(g=>`⚽ ${esc(g.minute)}' ${esc(playerName(m.year,g.scorerId))}`).join('<br>')}</p>` : ''}<div class="modal-actions">${navHref ? `<a class="btn btn-gold" href="${esc(navHref)}" rel="noopener">📍 ${navigationLabel()}</a>` : ''}${m.videoId ? `<a class="btn btn-youtube" href="https://www.youtube.com/watch?v=${encodeURIComponent(m.videoId)}" target="_blank" rel="noopener">▶ Otvori na YouTube-u</a>` : `<a class="btn btn-dark" href="${esc(club.youtubeSearch || '#')}" target="_blank" rel="noopener">YouTube kanal / pretraga</a>`}</div></div>`;
     videoModal.classList.add('open'); videoModal.setAttribute('aria-hidden','false'); body.classList.add('no-scroll');
   }
   function closeVideo(){ videoModal.classList.remove('open'); videoModal.setAttribute('aria-hidden','true'); videoContent.innerHTML=''; body.classList.remove('no-scroll'); }
