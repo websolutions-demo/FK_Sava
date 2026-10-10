@@ -185,16 +185,20 @@
     if(!list.length) return `<div class="empty-state">Još nema unetih utakmica.</div>`;
     return `<div class="team-match-list">${list.map(m=>{
       const isPlayed = m.status === 'played';
-      const primaryBadge = matchPrimaryBadge(m);
-      const metaLine = [m.time, m.competition].filter(Boolean).join(' · ');
+      const isPostponed = m.status === 'postponed';
+      const when = [fmtDate(m.date), m.time].filter(Boolean).join(' · ');
       return `<button class="team-match-row ${isPlayed ? 'is-played' : 'is-upcoming'}" data-match-id="${esc(m.id)}">
-        <span class="match-row-date">
-          <b>${esc(fmtDate(m.date))}</b>
-          ${metaLine ? `<small class="match-row-meta">${esc(metaLine)}</small>` : ''}
+        <span class="match-row-copy">
+          <span class="match-row-datetime">${esc(when)}</span>
+          ${m.competition ? `<small class="match-row-competition">${esc(m.competition)}</small>` : ''}
           ${m.venueName ? `<small class="match-row-location">📍 ${esc(m.venueName)}</small>` : ''}
+          <span class="match-opponent">${esc(matchTitle(m))}</span>
         </span>
-        <span class="match-opponent">${esc(matchTitle(m))}</span>
-        <strong class="${isPlayed ? 'result-played' : 'result-upcoming'}">${esc(primaryBadge)}</strong>
+        ${isPlayed
+          ? `<strong class="result-played">${esc(resultText(m))}</strong>`
+          : isPostponed
+            ? `<strong class="result-postponed">ODLOŽENO</strong>`
+            : `<span class="match-row-chevron" aria-hidden="true">›</span>`}
       </button>`;
     }).join('')}</div>`;
   }
@@ -213,18 +217,20 @@
     const goals=(m.events||[]).filter(e=>e.type==='goal');
     const navHref = navigationUrl(m);
     const isPlayed = m.status === 'played';
-    const detailBadge = isPlayed ? resultText(m) : (m.status === 'postponed' ? 'ODLOŽENO' : (m.time || 'Termin uskoro'));
+    const isPostponed = m.status === 'postponed';
+    const when = [fmtDate(m.date), m.time].filter(Boolean).join(' · ');
     drawerContent.innerHTML = `<button class="back-link" id="backToMatches">← Utakmice ${esc(year)}</button>
       <div class="match-detail">
-        <span class="section-kicker">${esc(m.competition || 'UTAKMICA')} · ${esc(fmtDate(m.date))}</span>
+        <span class="section-kicker">${esc(m.competition || 'UTAKMICA')}</span>
         <h2>${esc(matchTitle(m))}</h2>
-        <div class="match-detail-pills">
-          ${m.time ? `<span class="detail-pill detail-pill-time">🕒 ${esc(m.time)}</span>` : ''}
-          <span class="detail-pill detail-pill-status">${esc(matchStatusLabel(m))}</span>
+        <div class="match-schedule-line">
+          <strong>${esc(when)}</strong>
+          <span>${esc(matchStatusLabel(m))}</span>
         </div>
-        <div class="big-score ${isPlayed ? '' : 'big-time'}">${esc(detailBadge)}</div>
+        ${isPlayed ? `<div class="big-score">${esc(resultText(m))}</div>` : ''}
+        ${isPostponed ? `<div class="postponed-note">Utakmica je odložena.</div>` : ''}
         ${m.venueName||m.address ? `<div class="match-location-card"><b>📍 ${esc(m.venueName||'Lokacija utakmice')}</b>${m.address ? `<span>${esc(m.address)}</span>` : ''}${navHref ? `<a class="btn btn-gold" href="${esc(navHref)}" rel="noopener">${navigationLabel()}</a>` : ''}</div>` : ''}
-        ${isPlayed ? `<div class="goal-list"><h3>Golovi FK Sava</h3>${goals.length ? goals.map(g=>`<div><b>⚽ ${esc(g.minute || '?')}'</b><span>${esc(playerName(year,g.scorerId))}${g.assistPlayerId ? ` · asist. ${esc(playerName(year,g.assistPlayerId))}` : ''}</span></div>`).join('') : '<p>Nema unetih strelaca.</p>'}</div>` : `<p class="upcoming-note">${esc(m.note || 'Najavljena utakmica.')}</p>`}
+        ${isPlayed ? `<div class="goal-list"><h3>Golovi FK Sava</h3>${goals.length ? goals.map(g=>`<div><b>⚽ ${esc(g.minute || '?')}'</b><span>${esc(playerName(year,g.scorerId))}${g.assistPlayerId ? ` · asist. ${esc(playerName(year,g.assistPlayerId))}` : ''}</span></div>`).join('') : '<p>Nema unetih strelaca.</p>'}</div>` : (!isPostponed ? `<p class="upcoming-note">${esc(m.note || 'Najavljena utakmica.')}</p>` : '')}
         <div class="player-bottom">${m.videoId ? `<button class="btn btn-youtube" id="matchVideoBtn">▶ Pogledaj video</button>` : ''}<button class="btn btn-dark" id="backToMatches2">Nazad na tabelu</button></div>
       </div>`;
     qs('#backToMatches').onclick=()=>renderAgeMatches(year);

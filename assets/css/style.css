@@ -188,3 +188,117 @@
   .match-detail-pills{gap:8px;}
   .detail-pill{font-size:.86rem;padding:7px 10px;}
 }
+
+/* V6.5 match card hierarchy — upcoming matches show date/time as information, never as a CTA */
+.team-match-row{
+  grid-template-columns:1fr auto;
+  align-items:center;
+  gap:16px;
+  padding:18px 18px;
+}
+.team-match-row .match-row-copy{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:6px;
+}
+.team-match-row .match-row-datetime{
+  display:block;
+  color:#fff;
+  font-size:1.08rem;
+  line-height:1.1;
+  font-weight:950;
+  letter-spacing:.01em;
+}
+.team-match-row .match-row-competition{
+  display:block;
+  color:var(--gold);
+  font-size:.78rem;
+  line-height:1.1;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.team-match-row .match-row-location{
+  display:block;
+  color:#9ea0a1;
+  font-size:.86rem;
+  line-height:1.25;
+}
+.team-match-row .match-opponent{
+  display:block;
+  margin-top:8px;
+  color:#fff;
+  font-size:1.08rem;
+  line-height:1.2;
+  font-weight:950;
+}
+.team-match-row .match-row-chevron{
+  color:var(--gold);
+  font-size:2rem;
+  line-height:1;
+  font-weight:400;
+  opacity:.9;
+}
+.team-match-row .result-played,
+.team-match-row .result-postponed{
+  min-width:88px;
+  text-align:center;
+  border-radius:9px;
+  padding:9px 8px;
+  font-size:.9rem;
+  font-weight:950;
+}
+.team-match-row .result-played{
+  background:rgba(255,194,24,.14);
+  color:var(--gold);
+}
+.team-match-row .result-postponed{
+  background:#202326;
+  color:#d7d7d7;
+}
+.match-schedule-line{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px 14px;
+  margin:12px 0 20px;
+  padding-bottom:14px;
+  border-bottom:1px solid #2d3032;
+}
+.match-schedule-line strong{
+  color:#fff;
+  font-size:1.2rem;
+  line-height:1.15;
+  font-weight:950;
+}
+.match-schedule-line span{
+  color:#9ea0a1;
+  font-size:.78rem;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.postponed-note{
+  margin:0 0 18px;
+  padding:14px 16px;
+  border-left:3px solid #777;
+  background:#111315;
+  color:#c4c5c6;
+  font-weight:800;
+}
+@media(max-width:720px){
+  .team-match-row{
+    grid-template-columns:1fr auto;
+    gap:12px;
+    padding:16px;
+  }
+  .team-match-row .match-row-datetime{font-size:1.18rem;}
+  .team-match-row .match-row-competition{font-size:.8rem;}
+  .team-match-row .match-row-location{font-size:.9rem;}
+  .team-match-row .match-opponent{font-size:1.08rem;}
+  .team-match-row .match-row-chevron{font-size:1.8rem;}
+  .match-schedule-line strong{font-size:1.22rem;}
+}
